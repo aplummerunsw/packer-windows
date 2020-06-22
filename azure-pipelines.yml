@@ -10,6 +10,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- script: yum install -y qemu-system
+  displayName: "Install QEMU"
 - script: packer --version
   displayName: 'Check version of packer'
 - task: PackerBuild@1
