@@ -20,10 +20,16 @@ steps:
     mkdir -p $(System.DefaultWorkingDirectory)/shared
     mkdir -p $(System.DefaultWorkingDirectory)/shared
   displayName: "Create packer tmp dirs"
-- download: current
-  artifact: "windows_10_ent_ltsc_2019_iso"
-- download: current
-  artifact: "virtio_win_iso"
+- task: DownloadPipelineArtifact@2
+  inputs:
+    source: specific
+    project: "unswIT-SDD-DevEnv"
+    artifact: "windows_10_ent_ltsc_2019_iso"
+- task: DownloadPipelineArtifact@2
+  inputs:
+    source: current
+    project: "unswIT-SDD-DevEnv"
+    artifact: "virtio_win_iso"
 - task: PackerBuild@1
   inputs:
     templateType: 'custom'
