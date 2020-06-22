@@ -17,8 +17,8 @@ steps:
 - script: echo $(System.DefaultWorkingDirectory)
   displayName: "Show $(System.DefaultWorkingDirectory)"
 - script: |
-    sudo mkdir -p $(System.DefaultWorkingDirectory)/shared/packer_tmp
-    sudo mkdir -p $(System.DefaultWorkingDirectory)/shared/packer_out
+    sudo mkdir -p $(System.DefaultWorkingDirectory)/shared
+    sudo mkdir -p $(System.DefaultWorkingDirectory)/shared
   displayName: "Create packer tmp dirs"
 - task: PackerBuild@1
   inputs:
