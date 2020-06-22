@@ -42,9 +42,20 @@ steps:
     customTemplateLocation: 'windows_10_enterprise_lite.json'
     customTemplateParameters: |
       {"iso_url": "$(System.DefaultWorkingDirectory)/artifacts/WINDOWS_Microsoft_Windows_10_Ent_LTSC_2019_64b.iso",
+      "iso_checksum": "d6c7eca8741948eb91638717b3d927c3f122a803545a2e05fe412abcadddb8fe",
       "virtio_win_iso": "$(System.DefaultWorkingDirectory)/artifacts/virtio-win-0.1.171.iso",
       "output_directory": "$(System.DefaultWorkingDirectory)/shared/packer_tmp",
       "post_proc_output": "$(System.DefaultWorkingDirectory)/shared/packer_out"}
-- publish: $(System.DefaultWorkingDirectory)/shared/packer_out
-  artifact: windows_10_ent
+- task: UniversalPackages@0
+  displayName: Universal Publish
+  inputs:
+    command: publish
+    publishDirectory: '$(System.DefaultWorkingDirectory)/shared/packer_out'
+    vstsFeedPublish: 'unswIT-SDD-DevEnv/TestArtifactFeed'
+    vstsFeedPackagePublish: 'windows_10_ent_qemu.box'
+    versionOption: minor
+    #versionPublish: '0.1.0'
+    packagePublishDescription: 'windows_10_ent_qemu.box'
+#- publish: $(System.DefaultWorkingDirectory)/shared/packer_out
+#  artifact: windows_10_ent
 
