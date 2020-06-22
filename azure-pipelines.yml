@@ -21,7 +21,7 @@ steps:
     mkdir -p $(System.DefaultWorkingDirectory)/shared
   displayName: "Create packer tmp dirs"
 - download: current
-  artifact: "windows_10_ent_ltsc_2019_ISO"
+  artifact: "windows_10_ent_ltsc_2019_iso"
 - download: current
   artifact: "virtio_win_iso"
 - task: PackerBuild@1
