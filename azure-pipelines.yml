@@ -17,16 +17,22 @@ steps:
 - script: echo $(System.DefaultWorkingDirectory)
   displayName: "Show $(System.DefaultWorkingDirectory)"
 - script: |
-    sudo mkdir -p $(System.DefaultWorkingDirectory)/shared
-    sudo mkdir -p $(System.DefaultWorkingDirectory)/shared
+    mkdir -p $(System.DefaultWorkingDirectory)/shared
+    mkdir -p $(System.DefaultWorkingDirectory)/shared
   displayName: "Create packer tmp dirs"
+- download: current
+  artifact: "windows_10_ent_ltsc_2019_ISO"
+- download: current
+  artifact: "virtio_win_iso"
 - task: PackerBuild@1
   inputs:
     templateType: 'custom'
     customTemplateLocation: 'windows_10_enterprise_lite.json'
     customTemplateParameters: |
-      {"output_directory": "$(System.DefaultWorkingDirectory)/shared/packer_tmp",
+      {"iso_url": "$(Pipeline.Workspace)/windows_10_ent_ltsc_2019_iso",
+      "virtio_win_iso": "$(Pipeline.Workspace)/virtio_win_iso",
+      "output_directory": "$(System.DefaultWorkingDirectory)/shared/packer_tmp",
       "post_proc_output": "$(System.DefaultWorkingDirectory)/shared/packer_out"}
-- publish: $(System.DefaultWorkingDirectory)/shared/packer_out/
+- publish: $(System.DefaultWorkingDirectory)/shared/packer_out
   artifact: windows_10_ent
 
