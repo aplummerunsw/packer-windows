@@ -13,9 +13,23 @@ steps:
 - script: sudo apt-get install -y qemu-system
   displayName: "Install QEMU"
 - script: packer --version
-  displayName: 'Check version of packer'
+  displayName: "Check version of packer"
+- script: echo $(System.DefaultWorkingDirectory)
+  displayName: "Show $(System.DefaultWorkingDirectory)"
+- script: |
+    sudo mkdir $(System.DefaultWorkingDirectory)/shared/packer_tmp
+    sudo mkdir $(System.DefaultWorkingDirectory)/shared/packer_out
+  displayName: "Create packer tmp dirs"
 - task: PackerBuild@1
   inputs:
     templateType: 'custom'
     customTemplateLocation: 'windows_10_enterprise_lite.json'
-    imageUri: 'output_directory'
+    customTemplateParameters: |
+      {"variables": {
+         "output_directory": "$(System.DefaultWorkingDirectory)/shared/packer_tmp/{{user `vm_name` }}",
+         "post_proc_output": "$(System.DefaultWorkingDirectory)/shared/packer_out/{{user `vm_name` }}"
+         }
+      }
+- publish: $(System.DefaultWorkingDirectory)/shared/packer_out/
+  artifact: windows_10_ent
+
