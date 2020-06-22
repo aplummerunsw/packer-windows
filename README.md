@@ -1,6 +1,6 @@
 # Windows Templates for Packer
 
-[![Build status](https://ci.appveyor.com/api/projects/status/76pea1oexae5ca05?svg=true)](https://ci.appveyor.com/project/StefanScherer/packer-windows)
+[![Build Status](https://unswdigitaldelivery.visualstudio.com/unswIT-SDD-DevEnv/_apis/build/status/aplummerunsw.packer-windows?branchName=my)](https://unswdigitaldelivery.visualstudio.com/unswIT-SDD-DevEnv/_build/latest?definitionId=67&branchName=my)
 
 ### Introduction
 
