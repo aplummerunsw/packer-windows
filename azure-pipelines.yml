@@ -10,6 +10,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- script: packer --version
+  displayName: 'Check version of packer'
 - task: PackerBuild@1
   inputs:
     templateType: 'custom'
