@@ -14,8 +14,6 @@ steps:
   displayName: "Install QEMU"
 - script: packer --version
   displayName: "Check version of packer"
-- script: echo $(System.DefaultWorkingDirectory)
-  displayName: "Show $(System.DefaultWorkingDirectory)"
 - script: |
     mkdir -p $(System.DefaultWorkingDirectory)/shared
     mkdir -p $(System.DefaultWorkingDirectory)/shared
@@ -23,19 +21,21 @@ steps:
 - task: UniversalPackages@0
   displayName: Download Windows Enterprise ISO
   inputs:
-    command: publish
-    publishDirectory: '$(Pipeline.Workspace)/artifacts'
-    vstsFeedPublish: 'unswIT-SDD-DevEnv/TestArtifactFeed'
-    vstsFeedPackagePublish: 'windows_10_ent_ltsc_2019_iso'
-    packagePublishDescription: 'WINDOWS_Microsoft_Windows_10_Ent_LTSC_2019_64b.iso'
+    command: download
+    downloadDirectory: '$(Pipeline.Workspace)/artifacts'
+    vstsFeed: 'unswIT-SDD-DevEnv/TestArtifactFeed'
+    vstsFeedPackage: 'windows_10_ent_ltsc_2019_iso'
+    vstsPackageVersion: 0.0.1
 - task: UniversalPackages@0
   displayName: Download virtio-win drivers ISO
   inputs:
-    command: publish
-    publishDirectory: '$(Pipeline.Workspace)/artifacts'
-    vstsFeedPublish: 'unswIT-SDD-DevEnv/TestArtifactFeed'
-    vstsFeedPackagePublish: 'virtio-win_iso'
-    packagePublishDescription: 'virtio-win-0.1.171.iso'
+    command: download
+    downloadDirectory: '$(Pipeline.Workspace)/artifacts'
+    vstsFeed: 'unswIT-SDD-DevEnv/TestArtifactFeed'
+    vstsFeedPackage: 'virtio-win_iso'
+    vstsPackageVersion: 0.1.171
+- script: ls -la (System.DefaultWorkingDirectory)
+  displayName: "Show $(System.DefaultWorkingDirectory)"
 - task: PackerBuild@1
   inputs:
     templateType: 'custom'
