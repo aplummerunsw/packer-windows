@@ -34,7 +34,7 @@ steps:
     vstsFeed: 'unswIT-SDD-DevEnv/TestArtifactFeed'
     vstsFeedPackage: 'virtio-win_iso'
     vstsPackageVersion: 0.1.171
-- script: ls -la (System.DefaultWorkingDirectory)
+- script: ls -la $(System.DefaultWorkingDirectory)
   displayName: "Show $(System.DefaultWorkingDirectory)"
 - task: PackerBuild@1
   inputs:
