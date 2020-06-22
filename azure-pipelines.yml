@@ -26,8 +26,8 @@ steps:
     customTemplateLocation: 'windows_10_enterprise_lite.json'
     customTemplateParameters: |
       {"variables": {
-         "output_directory": "$(System.DefaultWorkingDirectory)/shared/packer_tmp/{{user `vm_name` }}",
-         "post_proc_output": "$(System.DefaultWorkingDirectory)/shared/packer_out/{{user `vm_name` }}"
+         "output_directory": "$(System.DefaultWorkingDirectory)/shared/packer_tmp",
+         "post_proc_output": "$(System.DefaultWorkingDirectory)/shared/packer_out"
          }
       }
 - publish: $(System.DefaultWorkingDirectory)/shared/packer_out/
