@@ -22,7 +22,7 @@ steps:
   displayName: Download Windows Enterprise ISO
   inputs:
     command: download
-    downloadDirectory: '$(Pipeline.Workspace)/artifacts'
+    downloadDirectory: '$(System.DefaultWorkingDirectory)/artifacts'
     vstsFeed: 'unswIT-SDD-DevEnv/TestArtifactFeed'
     vstsFeedPackage: 'windows_10_ent_ltsc_2019_iso'
     vstsPackageVersion: 0.0.1
@@ -30,7 +30,7 @@ steps:
   displayName: Download virtio-win drivers ISO
   inputs:
     command: download
-    downloadDirectory: '$(Pipeline.Workspace)/artifacts'
+    downloadDirectory: '$(System.DefaultWorkingDirectory)/artifacts'
     vstsFeed: 'unswIT-SDD-DevEnv/TestArtifactFeed'
     vstsFeedPackage: 'virtio-win_iso'
     vstsPackageVersion: 0.1.171
@@ -41,8 +41,8 @@ steps:
     templateType: 'custom'
     customTemplateLocation: 'windows_10_enterprise_lite.json'
     customTemplateParameters: |
-      {"iso_url": "$(Pipeline.Workspace)/artifacts/windows_10_ent_ltsc_2019_iso",
-      "virtio_win_iso": "$(Pipeline.Workspace)/artifacts/virtio_win_iso",
+      {"iso_url": "$(System.DefaultWorkingDirectory)/artifacts/windows_10_ent_ltsc_2019_iso",
+      "virtio_win_iso": "$(System.DefaultWorkingDirectory)/artifacts/virtio_win_iso",
       "output_directory": "$(System.DefaultWorkingDirectory)/shared/packer_tmp",
       "post_proc_output": "$(System.DefaultWorkingDirectory)/shared/packer_out"}
 - publish: $(System.DefaultWorkingDirectory)/shared/packer_out
