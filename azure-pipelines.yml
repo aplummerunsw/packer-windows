@@ -24,7 +24,9 @@ steps:
   inputs:
     templateType: 'custom'
     customTemplateLocation: 'windows_10_enterprise_lite.json'
-    customTemplateParameters: {"output_directory": "$(System.DefaultWorkingDirectory)/shared/packer_tmp","post_proc_output": "$(System.DefaultWorkingDirectory)/shared/packer_out"}
+    customTemplateParameters: |
+      {"output_directory": "$(System.DefaultWorkingDirectory)/shared/packer_tmp",
+      "post_proc_output": "$(System.DefaultWorkingDirectory)/shared/packer_out"}
 - publish: $(System.DefaultWorkingDirectory)/shared/packer_out/
   artifact: windows_10_ent
 
