@@ -20,23 +20,29 @@ steps:
     mkdir -p $(System.DefaultWorkingDirectory)/shared
     mkdir -p $(System.DefaultWorkingDirectory)/shared
   displayName: "Create packer tmp dirs"
-- task: DownloadPipelineArtifact@2
+- task: UniversalPackages@0
+  displayName: Download Windows Enterprise ISO
   inputs:
-    source: specific
-    project: "unswIT-SDD-DevEnv"
-    artifact: "windows_10_ent_ltsc_2019_iso"
-- task: DownloadPipelineArtifact@2
+    command: publish
+    publishDirectory: '$(Pipeline.Workspace)/artifacts'
+    vstsFeedPublish: 'unswIT-SDD-DevEnv/TestArtifactFeed'
+    vstsFeedPackagePublish: 'windows_10_ent_ltsc_2019_iso'
+    packagePublishDescription: 'WINDOWS_Microsoft_Windows_10_Ent_LTSC_2019_64b.iso'
+- task: UniversalPackages@0
+  displayName: Download virtio-win drivers ISO
   inputs:
-    source: current
-    project: "unswIT-SDD-DevEnv"
-    artifact: "virtio_win_iso"
+    command: publish
+    publishDirectory: '$(Pipeline.Workspace)/artifacts'
+    vstsFeedPublish: 'unswIT-SDD-DevEnv/TestArtifactFeed'
+    vstsFeedPackagePublish: 'virtio-win_iso'
+    packagePublishDescription: 'virtio-win-0.1.171.iso'
 - task: PackerBuild@1
   inputs:
     templateType: 'custom'
     customTemplateLocation: 'windows_10_enterprise_lite.json'
     customTemplateParameters: |
-      {"iso_url": "$(Pipeline.Workspace)/windows_10_ent_ltsc_2019_iso",
-      "virtio_win_iso": "$(Pipeline.Workspace)/virtio_win_iso",
+      {"iso_url": "$(Pipeline.Workspace)/artifacts/windows_10_ent_ltsc_2019_iso",
+      "virtio_win_iso": "$(Pipeline.Workspace)/artifacts/virtio_win_iso",
       "output_directory": "$(System.DefaultWorkingDirectory)/shared/packer_tmp",
       "post_proc_output": "$(System.DefaultWorkingDirectory)/shared/packer_out"}
 - publish: $(System.DefaultWorkingDirectory)/shared/packer_out
