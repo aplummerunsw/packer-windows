@@ -1,7 +1,7 @@
 {
   "builders": [
     {
-      "boot_wait": "6m",
+      "boot_wait": "{{user `boot_wait_time`}}",
       "communicator": "winrm",
       "cpus": "2",
       "disk_size": "{{user `disk_size`}}",
@@ -17,8 +17,7 @@
         "./scripts/win-updates.ps1"
       ],
       "headless": true,
-      "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum_type`}}:{{user `iso_checksum`}}",
       "iso_url": "{{user `iso_url`}}",
       "memory": "2048",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
@@ -35,7 +34,7 @@
       "winrm_username": "vagrant"
     },
     {
-      "boot_wait": "6m",
+      "boot_wait": "{{user `boot_wait_time`}}",
       "communicator": "winrm",
       "configuration_version": "8.0",
       "cpus": "2",
@@ -52,8 +51,7 @@
         "./scripts/win-updates.ps1"
       ],
       "guest_additions_mode": "none",
-      "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum_type`}}:{{user `iso_checksum`}}",
       "iso_url": "{{user `iso_url`}}",
       "memory": "2048",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
@@ -66,7 +64,7 @@
     },
     {
       "boot_command": "",
-      "boot_wait": "6m",
+      "boot_wait": "{{user `boot_wait_time`}}",
       "communicator": "winrm",
       "cpus": 2,
       "disk_adapter_type": "lsisas1068",
@@ -85,8 +83,7 @@
       ],
       "guest_os_type": "windows9-64",
       "headless": "{{user `headless`}}",
-      "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum_type`}}:{{user `iso_checksum`}}",
       "iso_url": "{{user `iso_url`}}",
       "memory": 2048,
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
@@ -106,7 +103,7 @@
     },
     {
       "boot_command": "",
-      "boot_wait": "6m",
+      "boot_wait": "{{user `boot_wait_time`}}",
       "communicator": "winrm",
       "cpus": 2,
       "disk_size": "{{user `disk_size`}}",
@@ -124,8 +121,7 @@
       "guest_additions_mode": "disable",
       "guest_os_type": "Windows10_64",
       "headless": "{{user `headless`}}",
-      "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum_type`}}:{{user `iso_checksum`}}",
       "iso_url": "{{user `iso_url`}}",
       "memory": 2048,
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
@@ -193,13 +189,14 @@
     "iso_checksum": "9ef81b6a101afd57b2dbfa44d5c8f7bc94ff45b51b82c5a1f9267ce2e63e9f53",
     "iso_checksum_type": "sha256",
     "iso_url": "https://software-download.microsoft.com/download/pr/18363.418.191007-0143.19h2_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso",
+    "output_directory": "/var/lib/libvirt/shared/packer_tmp/{{user `vm_name` }}",
+    "post_proc_output": "/var/lib/libvirt/shared/packer_out/{{user `vm_name` }}",
     "restart_timeout": "5m",
     "vhv_enable": "false",
-    "winrm_timeout": "6h",
-    "vm_name": "windows_10_ent",
     "virtio_win_iso": "~/virtio-win.iso",
-    "output_directory": "/var/lib/libvirt/shared/packer_tmp/{{user `vm_name` }}",
-    "post_proc_output": "/var/lib/libvirt/shared/packer_out/{{user `vm_name` }}"
+    "vm_name": "windows_10_ent",
+    "winrm_timeout": "6h",
+    "boot_wait_time": "10m"
   }
 }
 
